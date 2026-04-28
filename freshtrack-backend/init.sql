@@ -29,4 +29,4 @@ CREATE INDEX IF NOT EXISTS idx_stock_date ON stock_entries(date_added);
 CREATE INDEX IF NOT EXISTS idx_stock_category ON stock_entries(category);
 
 -- Run seed data
-\i /docker-entrypoint-initdb.d/seed.sql
+-- \i /docker-entrypoint-initdb.d/seed.sql

@@ -35,7 +35,7 @@ services:
       DB_NAME: freshtrack
       DB_USER: postgres
       DB_PASSWORD: freshtrack2026
-      JWT_SECRET: your_super_secret_jwt_key_change_this
+      JWT_SECRET: 1aa6512e2b3a03e669cb4c65db5401e63f39c1528be0b09e1ad3eff2332f737d
       JWT_EXPIRES_IN: 7d
     ports:
       - "5000:5000"

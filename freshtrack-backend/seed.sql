@@ -4,7 +4,7 @@ INSERT INTO users (id, name, email, password) VALUES (
   'a1b2c3d4-e5f6-7890-abcd-ef1234567890',
   'Sample User',
   'admin@freshtrack.com',
-  '$2a$12$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi' -- Admin1234
+  '$2b$12$0vIQqF7/ZdeYalXm7FO8Eu1qBynjDKP4.P9gaCI5Bc46j4nkLlWBC' -- Admin1234
 ) ON CONFLICT (email) DO NOTHING;
 
 -- Sample Stock Entries
