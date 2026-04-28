@@ -1,11 +1,13 @@
-db:
+services:
+  # PostgreSQL Database
+  db:
     image: postgres:15-alpine
     container_name: freshtrack_db
     restart: unless-stopped
     environment:
       POSTGRES_DB: freshtrack
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: freshtrack2026
+      POSTGRES_PASSWORD: 2077
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./freshtrack-backend/init.sql:/docker-entrypoint-initdb.d/01_init.sql
@@ -17,3 +19,40 @@ db:
       interval: 10s
       timeout: 5s
       retries: 5
+
+  # Node.js Backend
+  backend:
+    build:
+      context: ./freshtrack-backend
+      dockerfile: Dockerfile
+    container_name: freshtrack_backend
+    restart: unless-stopped
+    environment:
+      PORT: 5000
+      NODE_ENV: production
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: freshtrack
+      DB_USER: postgres
+      DB_PASSWORD: freshtrack2026
+      JWT_SECRET: your_super_secret_jwt_key_change_this
+      JWT_EXPIRES_IN: 7d
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+
+  # React Frontend
+  frontend:
+    build:
+      context: ./freshtrack-frontend
+      dockerfile: Dockerfile
+    container_name: freshtrack_frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
