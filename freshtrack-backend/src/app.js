@@ -15,9 +15,24 @@ app.use(helmet());
 
 // CORS
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production'
-    ? 'http://localhost:5173'
-    : 'http://localhost:5173',
+  origin: (origin, callback) => {
+    const allowedOrigins = [
+      'http://localhost',
+      'http://localhost:80',
+      'http://localhost:5173',
+      'http://127.0.0.1',
+      'http://127.0.0.1:5173',
+    ];
+
+    // Allow requests with no origin
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error('Not allowed by CORS'));
+  },
   credentials: true,
 }));
 
